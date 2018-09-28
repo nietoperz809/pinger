@@ -18,12 +18,12 @@ public class PingerGUI extends JDialog
         {
             if (yesno == InetState.OPEN)
             {
-                lab1.setText("<html>Inet available<br>for " + timespan + " seconds.</html>");
+                lab1.setText("<html>Inet available<br>since " + timespan + " seconds.</html>");
                 lab1.setBackground(Color.GREEN);
             }
             else if (yesno == InetState.CLOSED)
             {
-                lab1.setText("<html>No Inet<br>for " + timespan + " seconds.</html>");
+                lab1.setText("<html>No Inet<br>since " + timespan + " seconds.</html>");
                 lab1.setBackground(Color.RED);
             }
         });
