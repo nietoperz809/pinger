@@ -13,7 +13,7 @@ public class Pinger
     //private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     private Thread _thread;
     private PingerCallback _callback;
-    private boolean playTone;
+    private boolean _playTone;
 
     public Pinger (String host, PingerCallback cb)
     {
@@ -37,12 +37,12 @@ public class Pinger
 
     public void setToneEnabled (boolean b)
     {
-        playTone = b;
+        _playTone = b;
     }
 
     private void tone (String name)
     {
-        if (playTone)
+        if (_playTone)
             Utils.playWaveFromResource(name);
     }
 

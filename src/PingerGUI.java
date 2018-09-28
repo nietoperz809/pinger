@@ -17,6 +17,7 @@ public class PingerGUI extends JDialog
         setTitle("Internet Monitor");
 
         lab1.setOpaque(true);
+
         _pinger = new Pinger("yahoo.com", (yesno, timespan) ->
         {
             if (yesno == InetState.OPEN)
@@ -31,8 +32,13 @@ public class PingerGUI extends JDialog
             }
         });
 
+        // Sound on
+        _check.setSelected(true);
+        _pinger.setToneEnabled(true);
+        
         _check.addActionListener(e ->
         {
+            Utils.playWaveFromResource("cpckey.wav");
             _pinger.setToneEnabled(_check.isSelected());
         });
     }
