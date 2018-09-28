@@ -6,15 +6,18 @@ public class PingerGUI extends JDialog
 {
     private JPanel contentPane;
     private JLabel lab1;
+    private JCheckBox _check = new JCheckBox ("Play Sound");
+    private Pinger _pinger;
 
     public PingerGUI ()
     {
         $$$setupUI$$$();
         setContentPane(contentPane);
         setModal(true);
+        setTitle("Internet Monitor");
 
         lab1.setOpaque(true);
-        new Pinger("yahoo.com", (yesno, timespan) ->
+        _pinger = new Pinger("yahoo.com", (yesno, timespan) ->
         {
             if (yesno == InetState.OPEN)
             {
@@ -26,6 +29,11 @@ public class PingerGUI extends JDialog
                 lab1.setText("<html>No Inet<br>since " + timespan + " seconds.</html>");
                 lab1.setBackground(Color.RED);
             }
+        });
+
+        _check.addActionListener(e ->
+        {
+            _pinger.setToneEnabled(_check.isSelected());
         });
     }
 
@@ -67,6 +75,8 @@ public class PingerGUI extends JDialog
         lab1.setPreferredSize(new Dimension(200, 200));
         lab1.setRequestFocusEnabled(true);
         lab1.setText("Please wait ...");
+
+        contentPane.add (_check, BorderLayout.NORTH);
         contentPane.add(lab1, BorderLayout.CENTER);
     }
 

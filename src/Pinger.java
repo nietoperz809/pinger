@@ -13,6 +13,7 @@ public class Pinger
     //private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     private Thread _thread;
     private PingerCallback _callback;
+    private boolean playTone;
 
     public Pinger (String host, PingerCallback cb)
     {
@@ -34,18 +35,29 @@ public class Pinger
         _host = host;
     }
 
+    public void setToneEnabled (boolean b)
+    {
+        playTone = b;
+    }
+
+    private void tone (String name)
+    {
+        if (playTone)
+            Utils.playWaveFromResource(name);
+    }
+
     private void setOpen()
     {
         _firstOpenDate = _measureDate;
-        Utils.playWaveFromResource("TADA.WAV");
         _currentState = InetState.OPEN;
+        tone ("TADA.WAV");
     }
 
     private void setClosed()
     {
         _firstClosedDate = _measureDate;
-        Utils.playWaveFromResource("loose.wav");
         _currentState = InetState.CLOSED;
+        tone ("loose.wav");
     }
 
     private void testInetConnection ()
