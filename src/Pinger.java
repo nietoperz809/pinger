@@ -13,7 +13,6 @@ public class Pinger
     private Thread _thread;
     private PingerCallback _callback;
     private boolean _playTone;
-    private Logger _logger = new Logger();
 
     public Pinger (String host, PingerCallback cb)
     {
@@ -27,12 +26,12 @@ public class Pinger
             {
                 updateState();
             }
-        }, 0, 5000);
+        }, 0, 10000);
     }
 
     public Pinger (String host)
     {
-        _logger.log ("Pinger_started");
+        Logger.log ("Pinger_started");
         _host = host;
     }
 
@@ -52,7 +51,7 @@ public class Pinger
         _firstOpenDate = _measureDate;
         _currentState = InetState.OPEN;
         tone ("TADA.WAV");
-        _logger.log ("+++_Internet_OK");
+        Logger.log ("+++_Internet_OK");
     }
 
     private void setClosed()
@@ -60,7 +59,7 @@ public class Pinger
         _firstClosedDate = _measureDate;
         _currentState = InetState.CLOSED;
         tone ("loose.wav");
-        _logger.log ("---_NO_Internet!");
+        Logger.log ("---_NO_Internet!");
     }
 
     private void testInetConnection ()
@@ -70,7 +69,7 @@ public class Pinger
         {
             InetAddress inet = null;
             inet = InetAddress.getByName(_host);
-            boolean test = inet.isReachable(5000);
+            boolean test = inet.isReachable(8000);
             switch (_currentState)
             {
                 case OPEN:

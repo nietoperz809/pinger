@@ -26,16 +26,16 @@ public class Logger
         return "ERROR";
     }
 
-    public Logger()
+    public static String getCurrentTime()
     {
+        return dateFormat.format(new Date());
     }
 
-    public void log (String txt)
+    public static void log (String txt)
     {
         try(PrintWriter _out = new PrintWriter(new BufferedWriter(new FileWriter(FNAME, true))))
         {
-            String time = dateFormat.format(new Date());
-            _out.println (time + " " + txt);
+            _out.println (getCurrentTime() + " " + txt);
         }
         catch (IOException e)
         {

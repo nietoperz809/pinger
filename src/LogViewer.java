@@ -6,15 +6,18 @@ public class LogViewer extends JDialog
     private JPanel contentPane;
     private JTextArea textArea1;
     private JButton OKButton;
-    private JButton buttonOK;
 
     public LogViewer ()
     {
         setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
-        OKButton.addActionListener(e -> dispose());
-        textArea1.setText(Logger.getContent());
+        OKButton.addActionListener(e -> display());
+        display();
+    }
+
+    private void display()
+    {
+        textArea1.setText(Logger.getContent()+"\r\nNow is: "+Logger.getCurrentTime());
     }
 
     public static void main (String[] args)
@@ -45,7 +48,7 @@ public class LogViewer extends JDialog
         contentPane.setMinimumSize(new Dimension(300, 200));
         contentPane.setPreferredSize(new Dimension(300, 200));
         OKButton = new JButton();
-        OKButton.setText("OK");
+        OKButton.setText("Refresh");
         contentPane.add(OKButton, BorderLayout.SOUTH);
         final JScrollPane scrollPane1 = new JScrollPane();
         contentPane.add(scrollPane1, BorderLayout.CENTER);
