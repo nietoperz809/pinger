@@ -10,10 +10,10 @@ public class Pinger
     private Date _measureDate = new Date();
     private Date _firstOpenDate = new Date();
     private Date _firstClosedDate = new Date();
-    //private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     private Thread _thread;
     private PingerCallback _callback;
     private boolean _playTone;
+    private Logger _logger = new Logger();
 
     public Pinger (String host, PingerCallback cb)
     {
@@ -32,6 +32,7 @@ public class Pinger
 
     public Pinger (String host)
     {
+        _logger.log ("Pinger started");
         _host = host;
     }
 
@@ -51,6 +52,7 @@ public class Pinger
         _firstOpenDate = _measureDate;
         _currentState = InetState.OPEN;
         tone ("TADA.WAV");
+        _logger.log ("+++ Internet OK");
     }
 
     private void setClosed()
@@ -58,6 +60,7 @@ public class Pinger
         _firstClosedDate = _measureDate;
         _currentState = InetState.CLOSED;
         tone ("loose.wav");
+        _logger.log ("--- NO Internet!");
     }
 
     private void testInetConnection ()
