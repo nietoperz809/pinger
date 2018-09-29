@@ -32,7 +32,7 @@ public class Pinger
 
     public Pinger (String host)
     {
-        _logger.log ("Pinger started");
+        _logger.log ("Pinger_started");
         _host = host;
     }
 
@@ -52,7 +52,7 @@ public class Pinger
         _firstOpenDate = _measureDate;
         _currentState = InetState.OPEN;
         tone ("TADA.WAV");
-        _logger.log ("+++ Internet OK");
+        _logger.log ("+++_Internet_OK");
     }
 
     private void setClosed()
@@ -60,7 +60,7 @@ public class Pinger
         _firstClosedDate = _measureDate;
         _currentState = InetState.CLOSED;
         tone ("loose.wav");
-        _logger.log ("--- NO Internet!");
+        _logger.log ("---_NO_Internet!");
     }
 
     private void testInetConnection ()

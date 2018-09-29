@@ -1,7 +1,9 @@
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineEvent;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
+import java.util.concurrent.CountDownLatch;
 
 public class Utils
 {
@@ -14,11 +16,20 @@ public class Utils
 
     public static void playWave (InputStream is)
     {
+        CountDownLatch syncLatch = new CountDownLatch(1);
         try
         {
             Clip clip = AudioSystem.getClip();
+            clip.addLineListener(e ->
+            {
+                if (e.getType() == LineEvent.Type.STOP)
+                {
+                    syncLatch.countDown();
+                }
+            });
             clip.open (AudioSystem.getAudioInputStream(is));
             clip.start();
+            syncLatch.await();
         }
         catch (Exception exc)
         {
