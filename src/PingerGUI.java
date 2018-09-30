@@ -10,7 +10,7 @@ public class PingerGUI extends JDialog
 {
     private JPanel contentPane;
     private JLabel lab1;
-    private JCheckBox _check = new JCheckBox ("Play Sound");
+    private JCheckBox _check = new JCheckBox("Play Sound");
     private Pinger _pinger;
 
     public PingerGUI ()
@@ -39,29 +39,12 @@ public class PingerGUI extends JDialog
         // Sound on
         _check.setSelected(true);
         _pinger.setToneEnabled(true);
-        
+
         _check.addActionListener(e ->
         {
             Utils.playWaveFromResource("cpckey.wav");
             _pinger.setToneEnabled(_check.isSelected());
         });
-    }
-
-    public static void main (String[] args)
-    {
-        PingerGUI dialog = new PingerGUI();
-        dialog.addWindowListener(new WindowAdapter()
-        {
-            @Override
-            public void windowClosing(WindowEvent e)
-            {
-                Utils.playWaveFromResource("cpckey.wav");
-                Logger.log ("Pinger exited");
-                System.exit(0);
-            }
-        });
-        dialog.pack();
-        dialog.setVisible(true);
     }
 
     /**
@@ -99,9 +82,9 @@ public class PingerGUI extends JDialog
         lab1.setPreferredSize(new Dimension(200, 200));
         lab1.setText("Please wait ...");
 
-        topPanel.add (_check);
-        topPanel.add (butt);
-        contentPane.add (topPanel, BorderLayout.NORTH);
+        topPanel.add(_check);
+        topPanel.add(butt);
+        contentPane.add(topPanel, BorderLayout.NORTH);
         contentPane.add(lab1, BorderLayout.CENTER);
     }
 
@@ -132,6 +115,31 @@ public class PingerGUI extends JDialog
             }
         }
         return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
+    }
+
+    public static void main (String[] args)
+    {
+        PingerGUI dialog = new PingerGUI();
+        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dialog.addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing (WindowEvent e)
+            {
+                Utils.playWaveFromResource("cpckey.wav");
+                int opt = JOptionPane.showConfirmDialog(dialog,
+                        "Really?",
+                        "Close the App",
+                        JOptionPane.YES_NO_OPTION);
+                if (opt == JOptionPane.YES_OPTION)
+                {
+                    Logger.log("Pinger exited");
+                    System.exit(0);
+                }
+            }
+        });
+        dialog.pack();
+        dialog.setVisible(true);
     }
 
     /**
