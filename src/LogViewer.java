@@ -54,6 +54,7 @@ public class LogViewer extends JDialog
         contentPane.add(scrollPane1, BorderLayout.CENTER);
         textArea1 = new JTextArea();
         scrollPane1.setViewportView(textArea1);
+        setTitle("Pinger Logfile");
     }
 
     /**
