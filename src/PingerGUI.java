@@ -22,7 +22,7 @@ public class PingerGUI extends JDialog
 
         lab1.setOpaque(true);
 
-        _pinger = new Pinger("yahoo.com", (yesno, timespan) ->
+        _pinger = new Pinger("8.8.8.8", (yesno, timespan) ->
         {
             if (yesno == InetState.OPEN)
             {
@@ -121,6 +121,7 @@ public class PingerGUI extends JDialog
     {
         PingerGUI dialog = new PingerGUI();
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
         dialog.addWindowListener(new WindowAdapter()
         {
             @Override
@@ -138,6 +139,7 @@ public class PingerGUI extends JDialog
                 }
             }
         });
+
         dialog.pack();
         dialog.setVisible(true);
     }

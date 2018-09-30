@@ -69,7 +69,10 @@ public class Pinger
         {
             InetAddress inet = null;
             inet = InetAddress.getByName(_host);
-            boolean test = inet.isReachable(8000);
+            boolean test1 = inet.isReachable(5000);
+            inet = InetAddress.getByName(_host);
+            boolean test2 = inet.isReachable(5000);
+            boolean test = test1 & test2;
             switch (_currentState)
             {
                 case OPEN:
